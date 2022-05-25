@@ -15,15 +15,18 @@ function Roadmap({ roadmap }) {
         <p>{roadmap.description}</p>
         {auth?.username && (
           <div className="flex flex-wrap space-x-1 md:space-x-2">
-            {roadmap?.completed && (
-              <span className="badge badge-primary">Completed</span>
-            )}
-            {roadmap?.started && !roadmap?.completed && (
-              <span className="badge badge-secondary">In Progress</span>
-            )}
-            {roadmap?.relaxed && (
-              <span className="badge badge-warning">Relaxed</span>
-            )}
+            {roadmap?.started &&
+              (roadmap?.completed ? (
+                <span className="badge badge-primary">Completed</span>
+              ) : (
+                <span className="badge badge-secondary">In Progress</span>
+              ))}
+            {roadmap?.started &&
+              (roadmap?.relaxed ? (
+                <span className="badge badge-warning">Relaxed</span>
+              ) : (
+                <span className="badge badge-secondary">Strict</span>
+              ))}
           </div>
         )}
       </Card>
