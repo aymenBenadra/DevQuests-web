@@ -40,8 +40,6 @@ function Question() {
       while (true) {
         const newQuestion =
           questions[Math.floor(Math.random() * questions.length)];
-        console.log(prev);
-        console.log(newQuestion);
         if (prev.id !== newQuestion.id) {
           return newQuestion;
         }
@@ -52,7 +50,7 @@ function Question() {
   return (
     <div className="indicator w-full max-h-44 h-fit">
       <button
-        className="indicator-item badge badge-accent"
+        className="indicator-item badge badge-accent hover:animate-pulse"
         onClick={() => handleRefresh()}
       >
         Refresh
