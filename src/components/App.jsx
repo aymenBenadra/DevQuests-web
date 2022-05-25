@@ -20,8 +20,11 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="roadmaps/:roadmap" element={<Roadmap />}>
-          <Route index element={<div>select Module</div>} />
+        <Route path="roadmap/:roadmap" element={<Roadmap />}>
+          <Route
+            index
+            element={<div className="text-center">Select Module</div>}
+          />
           <Route path=":module" element={<Module />} />
         </Route>
 
