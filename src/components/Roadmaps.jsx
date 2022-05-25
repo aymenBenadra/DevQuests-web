@@ -1,46 +1,18 @@
 import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import axios from "../api/axios";
 import useRoadmaps from "../hooks/useRoadmaps";
-import useAuth from "../hooks/useAuth";
-import useAlert from "../hooks/useAlert";
 import Roadmap from "./Roadmap";
 
 function Roadmaps() {
-  const { roadmaps, setRoadmaps } = useRoadmaps();
-  const { auth } = useAuth();
-  const { setAlert } = useAlert();
-  const axiosPrivate = useAxiosPrivate();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { roadmaps, getRoadmaps } = useRoadmaps();
 
   useEffect(() => {
-    const controller = new AbortController();
-
-    const getRoadmaps = async () => {
-      try {
-        const { data } = auth?.username
-          ? await axiosPrivate.get("/roadmaps")
-          : await axios.get("/roadmaps");
-        setRoadmaps(data);
-      } catch (e) {
-        setAlert({ type: "error", message: e.message });
-        navigate("/login", { state: { from: location }, replace: true });
-      }
-    };
-
     getRoadmaps();
-
-    return () => {
-      controller.abort();
-    };
   }, []);
 
   return (
     <section className="mt-4 mx-4 bg-base-200 p-10 rounded-box">
       <h1 className="text-4xl mb-6">Roadmaps</h1>
-      <p className="text-accent">
+      <p className="text-accent mb-4">
         Pick a Roadmap and start learning how to code today!
       </p>
       {roadmaps?.length > 0 ? (
