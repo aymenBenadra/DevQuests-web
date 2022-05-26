@@ -7,7 +7,8 @@ import useAxiosPrivate from "./useAxiosPrivate";
 import axios from "../api/axios";
 
 export default function useRoadmaps() {
-  const { roadmaps, setRoadmaps } = useContext(RoadmapsContext);
+  const { roadmaps, roadmap, setRoadmaps, setRoadmap } =
+    useContext(RoadmapsContext);
   const { auth } = useAuth();
   const { setAlert } = useAlert();
   const axiosPrivate = useAxiosPrivate();
@@ -18,7 +19,6 @@ export default function useRoadmaps() {
     try {
       if (auth?.username) {
         const { data } = await axiosPrivate.get("/roadmaps");
-        console.dir(data);
         setRoadmaps(data);
       } else {
         const { data } = await axios.get("/roadmaps");
@@ -30,5 +30,13 @@ export default function useRoadmaps() {
     }
   };
 
-  return { roadmaps, setRoadmaps, getRoadmaps };
+  const value = {
+    roadmaps,
+    roadmap,
+    getRoadmaps,
+    setRoadmap,
+    setRoadmaps,
+  };
+
+  return value;
 }

@@ -4,12 +4,15 @@ const RoadmapsContext = createContext({});
 
 export const RoadmapsProvider = ({ children }) => {
   const [roadmaps, setRoadmaps] = useState([]);
+  const [roadmap, setRoadmap] = useState();
 
   return (
     <RoadmapsContext.Provider
       value={{
         roadmaps,
         setRoadmaps,
+        roadmap,
+        setRoadmap,
       }}
     >
       {children}
