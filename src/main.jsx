@@ -8,17 +8,20 @@ import { AlertProvider } from "./contexts/AlertContext";
 import { RoadmapsProvider } from "./contexts/RoadmapsContext";
 import { QuestionsProvider } from "./contexts/QuestionsContext";
 import { ResourcesProvider } from "./contexts/ResourcesContext";
+import { ModulesProvider } from "./contexts/ModulesContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AlertProvider>
       <AuthProvider>
         <RoadmapsProvider>
-          <QuestionsProvider>
-            <ResourcesProvider>
-              <App />
-            </ResourcesProvider>
-          </QuestionsProvider>
+          <ModulesProvider>
+            <QuestionsProvider>
+              <ResourcesProvider>
+                <App />
+              </ResourcesProvider>
+            </QuestionsProvider>
+          </ModulesProvider>
         </RoadmapsProvider>
       </AuthProvider>
     </AlertProvider>
