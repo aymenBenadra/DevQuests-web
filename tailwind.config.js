@@ -6,7 +6,22 @@ module.exports = {
   plugins: [require("daisyui")],
 
   daisyui: {
-    themes: ["light", "dark"],
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+          accent: "#6419E6",
+          primary: "#1FB2A6",
+        },
+      },
+      {
+        dark: {
+          ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
+          accent: "#6419E6",
+          primary: "#1FB2A6",
+        },
+      },
+    ],
     darkTheme: "dark",
   },
 };
