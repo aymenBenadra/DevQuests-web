@@ -105,7 +105,7 @@ function Register() {
             />
           </div>
 
-          <button type="submit" className="btn btn-accent">
+          <button type="submit" className="btn btn-primary">
             Sign up
           </button>
         </form>

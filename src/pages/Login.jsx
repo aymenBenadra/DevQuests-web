@@ -80,7 +80,7 @@ function Login() {
             />
           </div>
 
-          <button type="submit" className="btn btn-accent">
+          <button type="submit" className="btn btn-primary">
             Login
           </button>
         </form>

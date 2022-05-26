@@ -37,7 +37,7 @@ function Resources() {
           <div className="tooltip" data-tip={resource.description}>
             <a href={resource.link}>
               <div className="indicator w-full">
-                <span className="indicator-item indicator-middle -translate-x-1 hover:-translate-x-4 badge badge-accent ">
+                <span className="indicator-item indicator-middle -translate-x-1 hover:-translate-x-4 badge badge-primary ">
                   Go to →
                 </span>
                 {resource.title}
@@ -50,7 +50,7 @@ function Resources() {
         <div className="tooltip" data-tip="Click to see more resources">
           <Link to="/resources">
             <div className="indicator w-full">
-              <span className="indicator-item indicator-middle -translate-x-1 hover:-translate-x-4 badge badge-accent   ">
+              <span className="indicator-item indicator-middle -translate-x-1 hover:-translate-x-4 badge badge-primary   ">
                 See all →
               </span>
               Wanna see more resources?

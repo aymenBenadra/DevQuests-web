@@ -50,7 +50,7 @@ function Question() {
   return (
     <div className="indicator w-full max-h-44 h-fit">
       <button
-        className="indicator-item badge badge-accent hover:animate-pulse"
+        className="indicator-item badge badge-primary hover:animate-pulse"
         onClick={() => handleRefresh()}
       >
         Refresh

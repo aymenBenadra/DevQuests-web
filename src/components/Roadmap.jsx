@@ -17,15 +17,23 @@ function Roadmap({ roadmap }) {
           <div className="flex flex-wrap space-x-1 md:space-x-2">
             {roadmap?.started &&
               (roadmap?.completed ? (
-                <span className="badge badge-primary">Completed</span>
+                <span className="badge badge-primary badge-outline">
+                  Completed
+                </span>
               ) : (
-                <span className="badge badge-secondary">In Progress</span>
+                <span className="badge badge-primary badge-outline">
+                  In Progress
+                </span>
               ))}
             {roadmap?.started &&
               (roadmap?.relaxed ? (
-                <span className="badge badge-warning">Relaxed</span>
+                <span className="badge badge-warning badge-outline">
+                  Relaxed
+                </span>
               ) : (
-                <span className="badge badge-secondary">Strict</span>
+                <span className="badge badge-warning badge-outline">
+                  Strict
+                </span>
               ))}
           </div>
         )}

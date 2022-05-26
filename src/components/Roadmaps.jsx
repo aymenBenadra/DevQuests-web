@@ -6,13 +6,15 @@ function Roadmaps() {
   const { roadmaps, getRoadmaps } = useRoadmaps();
 
   useEffect(() => {
-    getRoadmaps();
+    if (roadmaps.length === 0) {
+      getRoadmaps();
+    }
   }, []);
 
   return (
     <section className="mt-4 mx-4 bg-base-200 p-10 rounded-box">
       <h1 className="text-4xl mb-6">Roadmaps</h1>
-      <p className="text-accent mb-4">
+      <p className="text-primary mb-4">
         Pick a Roadmap and start learning how to code today!
       </p>
       {roadmaps?.length > 0 ? (
