@@ -2,7 +2,7 @@ import React from "react";
 
 function Hero({ title, subtitle, cta }) {
   return (
-    <div className="hero min-h-fit bg-base-200 md:place-content-start">
+    <div className="hero min-h-fit md:place-content-start rounded-box">
       <div className="hero-content md:ml-40">
         <div>
           <h1 className="text-5xl font-bold">{title}</h1>

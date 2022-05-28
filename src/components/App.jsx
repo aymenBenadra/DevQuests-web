@@ -5,13 +5,21 @@ import Roadmap from "../pages/Roadmap";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Dashboard from "../pages/Dashboard";
-import Unauthorized from "../pages/Unauthorized";
 import NotFound from "../pages/NotFound";
 import useAuth from "../hooks/useAuth";
 import RequireRole from "./RequireRole";
-import Module from "./Module";
+import Module from "./roadmap/Module";
 import Layout from "../layouts/Layout";
 import Register from "../pages/Register";
+import Card from "../layouts/Card";
+import AddRoadmap from "./dashboard/AddRoadmap";
+import RemoveRoadmap from "./dashboard/RemoveRoadmap";
+import AddResource from "./dashboard/AddResource";
+import UpdateResource from "./dashboard/UpdateResources";
+import RemoveQuestion from "./dashboard/RemoveQuestion";
+import AddQuestion from "./dashboard/AddQuestion";
+import UpdateQuestion from "./dashboard/UpdateQuestion";
+import RemoveResource from "./dashboard/RemoveResource";
 
 function App() {
   const { roles } = useAuth();
@@ -36,7 +44,27 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route element={<RequireRole role={roles.admin} />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route
+              index
+              element={
+                <Card
+                  title="Dashboard 🚀"
+                  styles="w-full bg-base-500 border border-base-300"
+                >
+                  Choose an Action
+                </Card>
+              }
+            />
+            <Route path="roadmaps/add" element={<AddRoadmap />} />
+            <Route path="roadmaps/remove" element={<RemoveRoadmap />} />
+            <Route path="resources/add" element={<AddResource />} />
+            <Route path="resources/update" element={<UpdateResource />} />
+            <Route path="resources/remove" element={<RemoveResource />} />
+            <Route path="questions/add" element={<AddQuestion />} />
+            <Route path="questions/update" element={<UpdateQuestion />} />
+            <Route path="questions/remove" element={<RemoveQuestion />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
