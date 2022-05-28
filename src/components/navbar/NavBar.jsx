@@ -2,11 +2,11 @@ import React from "react";
 import NavUserDropdown from "./NavUserDropdown";
 import NavThemeSwap from "./NavThemeSwap";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 
 function NavBar() {
   return (
-    <div className="navbar bg-base-100 w-full flex-col mb-4 sm:flex-row">
+    <div className="navbar w-full flex-col mb-4 sm:flex-row">
       <div className="flex-1">
         <Link to="/">
           <span className="btn btn-ghost normal-case text-xl p-3 h-fit">

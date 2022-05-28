@@ -1,8 +1,8 @@
 import React from "react";
-import useAuth from "../hooks/useAuth";
-import useAlert from "../hooks/useAlert";
+import useAuth from "../../hooks/useAuth";
+import useAlert from "../../hooks/useAlert";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import axios from "../../api/axios";
 
 function NavUserDropdown() {
   const { auth, setAuth } = useAuth();
@@ -34,13 +34,14 @@ function NavUserDropdown() {
       </label>
       <ul
         tabIndex={0}
-        className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+        className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-500 rounded-box w-56"
       >
         {auth?.is_admin ? (
           <li>
             <div>
               <Link to="/dashboard">
-                Dashboard <span className="badge">Admin</span>
+                Dashboard{" "}
+                <span className="badge badge-outline badge-primary">Admin</span>
               </Link>
             </div>
           </li>

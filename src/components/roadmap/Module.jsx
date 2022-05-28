@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { axiosPrivate } from "../api/axios";
-import useModules from "../hooks/useModules";
-import useRoadmaps from "../hooks/useRoadmaps";
-import useAlert from "../hooks/useAlert";
-import Nodes from "./Nodes";
+import { axiosPrivate } from "../../api/axios";
+import useModules from "../../hooks/useModules";
+import useRoadmaps from "../../hooks/useRoadmaps";
+import useAlert from "../../hooks/useAlert";
 
 function Module() {
   const { module: title } = useParams();
-  const { roadmap } = useRoadmaps();
+  const { roadmap, setRoadmap, setRoadmaps } = useRoadmaps();
   const { module, setModule, modules, setModules } = useModules();
   const { setAlert } = useAlert();
 
@@ -65,18 +64,18 @@ function Module() {
         </h3>
       )}
       <div className="w-full h-fit bg-base-100 p-2 rounded-box">
-      {module.nodes.map((node) => (
-        <div className="collapse" key={node.id}>
-          <input type="checkbox" />
-          <div className="collapse-title text-lg font-medium w-full">
-            {node.title}
+        {module.nodes.map((node) => (
+          <div className="collapse collapse-arrow" key={node.id}>
+            <input type="checkbox" />
+            <div className="collapse-title text-lg font-medium w-full">
+              {node.title}
+            </div>
+            <div className="collapse-content text-sm">
+              <p>{node.description}</p>
+            </div>
           </div>
-          <div className="collapse-content text-sm">
-            <p>{node.description}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 function NavThemeSwap() {
   const [theme, setTheme] = useLocalStorage("theme", "light");
