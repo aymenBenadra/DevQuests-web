@@ -33,7 +33,7 @@ function Roadmap() {
     return <div className="text-center text-xl">Loading...</div>;
   }
 
-  const startRoadmap = async () => {
+  const handleStartRoadmap = async () => {
     try {
       if (!auth?.username) {
         throw new Error("You must be logged in to start a roadmap");
@@ -52,10 +52,10 @@ function Roadmap() {
     }
   };
 
-  const toggleMode = async () => {
+  const handleToggleMode = async () => {
     try {
       if (!auth?.username) {
-        throw new Error("You must be logged in to start a roadmap");
+        throw new Error("You must be logged in to toggle a roadmap");
       }
 
       const { data } = await axiosPrivate.post(`/roadmap/mode`, {
@@ -72,6 +72,30 @@ function Roadmap() {
     }
   };
 
+  const handleResetProgress = async () => {
+    try {
+      if (!auth?.username) {
+        throw new Error("You must be logged in to reset a roadmap");
+      }
+
+      const { data } = await axiosPrivate.post(`/roadmap/reset`, {
+        id: roadmap.id,
+      });
+
+      setAlert({ type: "success", message: data.message });
+      setRoadmap((prev) => ({
+        ...prev,
+        completed: false,
+        modules: prev.modules.map((m) => ({
+          ...m,
+          completed: false,
+        })),
+      }));
+    } catch (e) {
+      setAlert({ type: "error", message: e.message });
+    }
+  };
+
   return (
     <>
       <Hero
@@ -81,14 +105,14 @@ function Roadmap() {
             {roadmap.relaxed ? (
               <button
                 className="badge badge-primary btn-sm"
-                onClick={() => toggleMode()}
+                onClick={() => handleToggleMode()}
               >
                 Relaxed
               </button>
             ) : (
               <button
                 className="badge badge-primary btn-sm"
-                onClick={() => toggleMode()}
+                onClick={() => handleToggleMode()}
               >
                 Strict
               </button>
@@ -97,19 +121,35 @@ function Roadmap() {
         }
         subtitle={roadmap.description}
         cta={
-          !roadmap.started && (
-            <button className="btn btn-primary" onClick={() => startRoadmap()}>
+          !roadmap.started ? (
+            <button
+              className="btn btn-primary"
+              onClick={() => handleStartRoadmap()}
+            >
               Start Roadmap
             </button>
+          ) : (
+            <div className="flex space-x-2">
+              <button className="btn btn-primary btn-disabled">Started</button>
+              <button
+                className="btn btn-warning"
+                onClick={() => {
+                  confirm("Are you sure you want to reset your progress? (CAN'T BE UNDONE!)") &&
+                    handleResetProgress();
+                }}
+              >
+                Reset progress
+              </button>
+            </div>
           )
         }
       />
       <div className="flex flex-col md:flex-row w-full">
-        <section className="mt-4 md:mx-4 bg-base-200 p-10 rounded-box w-full md:w-1/3">
+        <section className="mt-4 md:mx-4 bg-base-300 p-10 rounded-box w-full md:w-1/4 h-fit min-w-fit">
           <h1 className="text-4xl mb-6">Modules</h1>
-          <ul className="menu bg-base-100 w-full p-2 rounded-box">
+          <ul className="menu bg-base-100 w-full p-2 rounded-box min-w-fit">
             {modules.map((module) => (
-              <li key={module.id}>
+              <li key={module.id} className=" font-semibold">
                 <Link to={`/roadmap/${title}/${module.title}`}>
                   {module.title}
                   {module.completed && (
@@ -120,7 +160,7 @@ function Roadmap() {
             ))}
           </ul>
         </section>
-        <section className="mt-4 md:mx-4 bg-base-200 p-10 rounded-box w-full md:w-2/3">
+        <section className="mt-4 md:mx-4 bg-base-300 p-10 rounded-box w-full md:w-3/4">
           <Outlet />
         </section>
       </div>
