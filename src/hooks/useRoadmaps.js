@@ -9,7 +9,7 @@ import axios from "../api/axios";
 export default function useRoadmaps() {
   const { roadmaps, roadmap, setRoadmaps, setRoadmap } =
     useContext(RoadmapsContext);
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const { setAlert } = useAlert();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ export default function useRoadmaps() {
       }
     } catch (e) {
       setAlert({ type: "error", message: e.message });
+      setAuth(null);
       navigate("/login", { state: { from: location }, replace: true });
     }
   };
