@@ -1,102 +1,52 @@
-import { useEffect } from "react";
 import { useParams, Outlet, Link } from "react-router-dom";
 import Hero from "../components/Hero";
-import useRoadmaps from "../hooks/useRoadmaps";
-import useModules from "../hooks/useModules";
-import useAlert from "../hooks/useAlert";
+import {
+  useRoadmap,
+  useStartRoadmap,
+  useToggleRoadmapMode,
+  useResetRoadmap,
+} from "../hooks/Roadmaps";
 import useAuth from "../hooks/useAuth";
-import { axiosPrivate } from "../api/axios";
 
 function Roadmap() {
-  const { roadmap: title } = useParams();
-  const { roadmaps, roadmap, getRoadmaps, setRoadmap } = useRoadmaps();
-  const { modules, setModules } = useModules();
-  const { setAlert } = useAlert();
+  const {roadmap: title} = useParams();
+  const {
+    data: roadmap,
+    isSuccess: isRoadmapLoaded,
+    isError: isRoadmapNotLoaded,
+    error: roadmapError,
+  } = useRoadmap(title);
+  const { mutate: startRoadmap } = useStartRoadmap(title);
+  const { mutate: toggleRoadmapMode } = useToggleRoadmapMode(title);
+  const { mutate: resetRoadmap } = useResetRoadmap(title);
+
   const { auth } = useAuth();
 
-  useEffect(() => {
-    if (roadmaps.length === 0) {
-      getRoadmaps();
+  const handleStartRoadmap = () => {
+    if (!auth?.username) {
+      throw new Error("You must be logged in to start a roadmap");
     }
-  }, []);
 
-  useEffect(() => {
-    setRoadmap(roadmaps.filter((r) => r.title === title)[0]);
-  }, [roadmaps, title]);
-
-  useEffect(() => {
-    if (!roadmap) return;
-    setModules(roadmap.modules);
-  }, [roadmap]);
-
-  if (!roadmap) {
-    return <div className="text-center text-xl">Loading...</div>;
-  }
-
-  const handleStartRoadmap = async () => {
-    try {
-      if (!auth?.username) {
-        throw new Error("You must be logged in to start a roadmap");
-      }
-
-      const { data } = await axiosPrivate.post(`/roadmap/start`, {
-        id: roadmap.id,
-      });
-      setAlert({ type: "success", message: data.message });
-      setRoadmap((prev) => ({
-        ...prev,
-        started: true,
-      }));
-    } catch (e) {
-      setAlert({ type: "error", message: e.message });
-    }
+    startRoadmap(roadmap.id);
   };
 
-  const handleToggleMode = async () => {
-    try {
-      if (!auth?.username) {
-        throw new Error("You must be logged in to toggle a roadmap");
-      }
-
-      const { data } = await axiosPrivate.post(`/roadmap/mode`, {
-        id: roadmap.id,
-      });
-
-      setAlert({ type: "success", message: data.message });
-      setRoadmap((prev) => ({
-        ...prev,
-        relaxed: !prev.relaxed,
-      }));
-    } catch (e) {
-      setAlert({ type: "error", message: e.message });
+  const handleToggleMode = () => {
+    if (!auth?.username) {
+      throw new Error("You must be logged in to toggle a roadmap");
     }
+
+    toggleRoadmapMode(roadmap.id);
   };
 
-  const handleResetProgress = async () => {
-    try {
-      if (!auth?.username) {
-        throw new Error("You must be logged in to reset a roadmap");
-      }
-
-      const { data } = await axiosPrivate.post(`/roadmap/reset`, {
-        id: roadmap.id,
-      });
-
-      setAlert({ type: "success", message: data.message });
-      setRoadmap((prev) => ({
-        ...prev,
-        completed: false,
-        modules: prev.modules.map((m) => ({
-          ...m,
-          completed: false,
-        })),
-      }));
-    } catch (e) {
-      setAlert({ type: "error", message: e.message });
+  const handleResetProgress = () => {
+    if (!auth?.username) {
+      throw new Error("You must be logged in to reset a roadmap");
     }
+
+    resetRoadmap(roadmap.id);
   };
 
-  return (
+  return isRoadmapLoaded ? (
     <>
       <Hero
         title={
@@ -130,12 +80,21 @@ function Roadmap() {
             </button>
           ) : (
             <div className="flex space-x-2">
-              <button className="btn btn-primary btn-disabled">Started</button>
+              {!roadmap.completed ? (
+                <button className="btn btn-primary btn-disabled">
+                  Started
+                </button>
+              ) : (
+                <button className="btn btn-primary btn-disabled">
+                  Completed
+                </button>
+              )}
               <button
                 className="btn btn-warning"
                 onClick={() => {
-                  confirm("Are you sure you want to reset your progress? (CAN'T BE UNDONE!)") &&
-                    handleResetProgress();
+                  confirm(
+                    "Are you sure you want to reset your progress? (CAN'T BE UNDONE!)"
+                  ) && handleResetProgress();
                 }}
               >
                 Reset progress
@@ -148,16 +107,17 @@ function Roadmap() {
         <section className="mt-4 md:mx-4 bg-base-300 p-10 rounded-box w-full md:w-1/4 h-fit min-w-fit">
           <h1 className="text-4xl mb-6">Modules</h1>
           <ul className="menu bg-base-100 w-full p-2 rounded-box min-w-fit">
-            {modules.map((module) => (
-              <li key={module.id} className=" font-semibold">
-                <Link to={`/roadmap/${title}/${module.title}`}>
-                  {module.title}
-                  {module.completed && (
-                    <span className="badge badge-primary">Completed</span>
-                  )}
-                </Link>
-              </li>
-            ))}
+            {isRoadmapLoaded &&
+              roadmap.modules.map((module) => (
+                <li key={module.id} className=" font-semibold">
+                  <Link to={`/roadmap/${title}/${module.title}`}>
+                    {module.title}
+                    {module.completed && (
+                      <span className="badge badge-primary">Completed</span>
+                    )}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </section>
         <section className="mt-4 md:mx-4 bg-base-300 p-10 rounded-box w-full md:w-3/4">
@@ -165,6 +125,14 @@ function Roadmap() {
         </section>
       </div>
     </>
+  ) : isRoadmapNotLoaded ? (
+    <div className="text-center text-xl">
+      <p>{roadmapError.message}</p>
+    </div>
+  ) : (
+    <div className="text-center text-xl">
+      <p>Loading...</p>
+    </div>
   );
 }
 
