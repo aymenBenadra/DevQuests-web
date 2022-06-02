@@ -11,7 +11,7 @@ function NavUserDropdown() {
 
   function handleLogout() {
     window.confirm("Are you sure you want to log out?") &&
-      axios.get("/logout").then(() => {
+      axios.post("/logout").then(() => {
         setAuth({});
         setAlert({ type: "info", message: "Logged out successfully" });
         navigate("/");
@@ -34,7 +34,7 @@ function NavUserDropdown() {
       </label>
       <ul
         tabIndex={0}
-        className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-500 rounded-box w-56"
+        className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-800 rounded-box w-56"
       >
         {auth?.is_admin ? (
           <li>

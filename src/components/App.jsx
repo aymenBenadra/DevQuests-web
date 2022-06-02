@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Roadmap from "../pages/Roadmap";
+import Roadmaps from "../pages/Roadmaps";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Dashboard from "../pages/Dashboard";
@@ -20,6 +21,8 @@ import RemoveQuestion from "./dashboard/RemoveQuestion";
 import AddQuestion from "./dashboard/AddQuestion";
 import UpdateQuestion from "./dashboard/UpdateQuestion";
 import RemoveResource from "./dashboard/RemoveResource";
+import UnderConstruction from "./UnderConstruction";
+import Resources from "../pages/Resources";
 
 function App() {
   const { roles } = useAuth();
@@ -28,6 +31,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="resources" element={<Resources />} />
+        <Route path="questions" element={<UnderConstruction />} />
+        <Route path="roadmaps" element={<Roadmaps />} />
         <Route path="roadmap/:roadmap" element={<Roadmap />}>
           <Route
             index

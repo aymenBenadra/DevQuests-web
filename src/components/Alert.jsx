@@ -4,15 +4,14 @@ import useAlert from "../hooks/useAlert";
 function Alert() {
   const { alert, icons } = useAlert();
   const [style, setStyle] = useState(
-    `alert ${"btn-" + alert?.type} shadow-lg absolute top-2 right-2 w-fit`
+    "alert shadow-lg fixed top-10 right-2 w-fit btn-" + alert?.type
   );
   const [icon, setIcon] = useState(icons[alert?.type]);
 
   useEffect(() => {
     setStyle(
-      `alert ${
-        "btn-" + alert?.type
-      } shadow-lg absolute top-2 right-2 w-fit animate-bounce z-50`
+      "alert shadow-lg fixed bottom-10 right-4 w-fit animate-bounce z-50 btn-" +
+        alert.type
     );
     setIcon(icons[alert?.type]);
   }, [alert]);

@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { axiosPrivate } from "../../api/axios";
-import useAlert from "../../hooks/useAlert";
 import useResources from "../../hooks/useResources";
 import Card from "../../layouts/Card";
 
@@ -10,8 +8,7 @@ function AddResource() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
-  const { setAlert } = useAlert();
-  const { getResources } = useResources();
+  const { addResource } = useResources();
 
   useEffect(() => {
     titleRef.current.focus();
@@ -20,28 +17,11 @@ function AddResource() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = await axiosPrivate.post(
-        "/resource",
-        JSON.stringify({ title, description, link }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      setAlert({ type: "success", message: data.message });
-      setTitle("");
-      setDescription("");
-      setLink("");
-      // refresh resources
-      getResources();
-    } catch (err) {
-      if (!err?.response) {
-        setAlert({ type: "error", message: "Server not responding" });
-      } else {
-        setAlert({ type: "error", message: err.response?.data.message });
-      }
-    }
+    addResource({ title, description, link });
+
+    setTitle("");
+    setDescription("");
+    setLink("");
   };
   return (
     <Card

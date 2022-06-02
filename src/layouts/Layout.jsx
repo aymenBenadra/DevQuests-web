@@ -24,7 +24,7 @@ function Layout() {
   return (
     <>
       <NavBar />
-      <main className="min-h-full relative">
+      <main className="min-h-full">
         {showAlert && <Alert />}
         <Outlet />
       </main>

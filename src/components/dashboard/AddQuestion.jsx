@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { axiosPrivate } from "../../api/axios";
-import useAlert from "../../hooks/useAlert";
-import useQuestions from "../../hooks/useQuestions";
+import { useAddQuestion } from "../../hooks/Questions";
 import Card from "../../layouts/Card";
 
 function AddQuestion() {
@@ -9,38 +7,29 @@ function AddQuestion() {
 
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const { setAlert } = useAlert();
-  const { getQuestions } = useQuestions();
 
   useEffect(() => {
     questionRef.current.focus();
   }, []);
 
+  const { isSuccess, mutate: addQuestion, reset } = useAddQuestion();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = await axiosPrivate.post(
-        "/question",
-        JSON.stringify({ question, answer }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      setAlert({ type: "success", message: data.message });
+    addQuestion({
+      question,
+      answer,
+    });
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
       setQuestion("");
       setAnswer("");
-      // refresh questions
-      getQuestions();
-    } catch (err) {
-      if (!err?.response) {
-        setAlert({ type: "error", message: "Server not responding" });
-      } else {
-        setAlert({ type: "error", message: err.response?.data.message });
-      }
+      reset();
     }
-  };
+  }, [isSuccess, reset]);
 
   return (
     <Card

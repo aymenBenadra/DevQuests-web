@@ -11,14 +11,14 @@ module.exports = {
         light: {
           ...require("daisyui/src/colors/themes")["[data-theme=light]"],
           accent: "#6419E6",
-          primary: "#1FB2A6",
+          primary: "#23B0A5",
         },
       },
       {
         dark: {
           ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
           accent: "#6419E6",
-          primary: "#1FB2A6",
+          primary: "#23B0A5",
         },
       },
     ],

@@ -9,7 +9,7 @@ function Roadmap({ roadmap }) {
   return (
     <Link
       to={roadmap.link ?? `/roadmap/${encodeURI(roadmap.title)}`}
-      className="sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 carousel-item"
+      className="sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 carousel-item min-w-fit place-content-center"
     >
       <Card title={roadmap.title}>
         <p>{roadmap.description}</p>
