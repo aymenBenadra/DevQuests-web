@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../../layouts/Card";
-import useAuth from "../../hooks/useAuth";
+import Card from "../layouts/Card";
+import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 function Roadmap({ roadmap }) {

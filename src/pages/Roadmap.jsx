@@ -111,7 +111,7 @@ function Roadmap() {
               roadmap.modules.map((module) => (
                 <li key={module.id} className=" font-semibold">
                   <Link to={`/roadmap/${title}/${module.title}`}>
-                    {module.title}
+                    <span className="font-serif">{module.title}</span>
                     {module.completed && (
                       <span className="badge badge-primary">Completed</span>
                     )}
