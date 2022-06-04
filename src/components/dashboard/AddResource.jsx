@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import useResources from "../../hooks/useResources";
+import { useAddResource } from "../../hooks/Resources";
 import Card from "../../layouts/Card";
 
 function AddResource() {
@@ -8,7 +8,7 @@ function AddResource() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
-  const { addResource } = useResources();
+  const { mutate: addResource, reset, isSuccess } = useAddResource();
 
   useEffect(() => {
     titleRef.current.focus();
@@ -18,11 +18,16 @@ function AddResource() {
     e.preventDefault();
 
     addResource({ title, description, link });
-
-    setTitle("");
-    setDescription("");
-    setLink("");
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTitle("");
+      setDescription("");
+      setLink("");
+      reset();
+    }
+  }, [isSuccess, reset]);
   return (
     <Card
       title="Add Resource 🚀"

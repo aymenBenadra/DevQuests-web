@@ -7,7 +7,7 @@ function Resources() {
   return (
     <ul className="menu space-y-1 w-full rounded-box p-0">
       {isSuccess &&
-        resources.slice(0, 4).map((resource) => (
+        resources.slice(0, 3).map((resource) => (
           <li key={resource.id}>
             <div
               className="tooltip border border-base-300 shadow"

@@ -1,13 +1,63 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
+import { useResources, useRemoveResource } from "../../hooks/Resources";
 import Card from "../../layouts/Card";
 
 function RemoveResource() {
+  const idRef = useRef();
+
+  const [id, setId] = useState(-1);
+  const { data: resources, isSuccess: isResourcesLoaded } = useResources();
+  const { mutate: removeResource } = useRemoveResource();
+
+  useEffect(() => {
+    idRef.current.focus();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    removeResource(id);
+
+    setId(-1);
+
+    idRef.current.focus();
+  };
   return (
     <Card
       title="Remove Resource 🚀"
       styles="w-full bg-base-500 border border-base-300"
     >
-      Removing new Resources
+      <form onSubmit={handleSubmit} className="text-center space-y-4">
+        <div className="justify-evenly flex flex-col md:flex-row flex-wrap items-center md:space-y-0 space-y-3">
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text">Resources</span>
+            </label>
+            <select
+              className="select select-bordered"
+              value={id}
+              ref={idRef}
+              onChange={(e) => {
+                setId(e.target.value);
+              }}
+            >
+              <option key={-1} disabled value={-1}>
+                Select a Resource
+              </option>
+              {isResourcesLoaded &&
+                resources.map((Resource) => (
+                  <option key={Resource.id} value={Resource.id}>
+                    {Resource.title}
+                  </option>
+                ))}
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
     </Card>
   );
 }
