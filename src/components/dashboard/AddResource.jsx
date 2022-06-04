@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useAddResource } from "../../hooks/Resources";
+import useReactMutation from "../../hooks/useReactMutation";
 import Card from "../../layouts/Card";
 
 function AddResource() {
@@ -8,7 +8,11 @@ function AddResource() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
-  const { mutate: addResource, reset, isSuccess } = useAddResource();
+  const {
+    mutate: addResource,
+    reset,
+    isSuccess,
+  } = useReactMutation("/resource", ["resources"]);
 
   useEffect(() => {
     titleRef.current.focus();

@@ -1,23 +1,21 @@
-import { useRoadmaps } from "../../hooks/Roadmaps";
-import { useResources } from "../../hooks/Resources";
-import { useQuestions } from "../../hooks/Questions";
+import useReactQuery from "../../hooks/useReactQuery";
 
 function Stats() {
   const {
     data: roadmaps,
     isLoading: isRoadmapsLoading,
     isSuccess: isRoadmapsLoaded,
-  } = useRoadmaps();
+  } = useReactQuery("/roadmaps", ["roadmaps"]);
   const {
     data: resources,
     isLoading: isResourcesLoading,
     isSuccess: isResourcesLoaded,
-  } = useResources();
+  } = useReactQuery("/resources", ["resources"]);
   const {
     data: questions,
     isLoading: isQuestionsLoading,
     isSuccess: isQuestionsLoaded,
-  } = useQuestions();
+  } = useReactQuery("/questions", ["questions"]);
 
   return (
     <div className="stats stats-horizontal md:stats-vertical border border-base-300 min-w-fit shadow-xl">
@@ -35,7 +33,7 @@ function Stats() {
       <div className="stat px-2 md:p-2">
         <div className="stat-title">Resources</div>
         <div className="stat-value text-primary text-center">
-        {isResourcesLoading
+          {isResourcesLoading
             ? "Loading..."
             : isResourcesLoaded
             ? resources.length

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useUpdateQuestion, useQuestions } from "../../hooks/Questions";
+import useReactMutation from "../../hooks/useReactMutation";
+import useReactQuery from "../../hooks/useReactQuery";
 import Card from "../../layouts/Card";
 
 function UpdateQuestion() {
@@ -8,8 +9,13 @@ function UpdateQuestion() {
   const [id, setId] = useState(-1);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const { data: questions, isSuccess: isQuestionsLoaded } = useQuestions();
-  const { mutate: updateQuestion } = useUpdateQuestion();
+  const { data: questions, isSuccess: isQuestionsLoaded } = useReactQuery(
+    "/questions",
+    ["questions"]
+  );
+  const { mutate: updateQuestion } = useReactMutation("/question/update", [
+    "questions",
+  ]);
 
   useEffect(() => {
     idRef.current.focus();

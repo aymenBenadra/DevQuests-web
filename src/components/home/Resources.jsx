@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { useResources } from "../../hooks/Resources";
+import useReactQuery from "../../hooks/useReactQuery";
 
 function Resources() {
-  const { data: resources, isSuccess } = useResources();
+  const { data: resources, isSuccess } = useReactQuery("/resources", [
+    "resources",
+  ]);
 
   return (
     <ul className="menu space-y-1 w-full rounded-box p-0">

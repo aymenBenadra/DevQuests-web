@@ -1,13 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuestions, useRemoveQuestion } from "../../hooks/Questions";
+import useReactMutation from "../../hooks/useReactMutation";
+import useReactQuery from "../../hooks/useReactQuery";
 import Card from "../../layouts/Card";
 
 function RemoveQuestion() {
   const idRef = useRef();
 
   const [id, setId] = useState(-1);
-  const { data: questions, isSuccess: isQuestionsLoaded } = useQuestions();
-  const { mutate: removeQuestion } = useRemoveQuestion();
+  const { data: questions, isSuccess: isQuestionsLoaded } = useReactQuery(
+    "/questions",
+    ["questions"]
+  );
+  const { mutate: removeQuestion } = useReactMutation("/question/delete", [
+    "questions",
+  ]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -16,7 +23,7 @@ function RemoveQuestion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    removeQuestion(id);
+    removeQuestion({ id });
 
     setId(-1);
 

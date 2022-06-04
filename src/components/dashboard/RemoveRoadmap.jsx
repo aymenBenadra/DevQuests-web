@@ -1,13 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import Card from "../../layouts/Card";
 import { useRoadmaps, useRemoveRoadmap } from "../../hooks/Roadmaps";
+import useReactQuery from "../../hooks/useReactQuery";
+import useReactMutation from "../../hooks/useReactMutation";
 
 function RemoveRoadmap() {
   const idRef = useRef();
 
   const [id, setId] = useState(-1);
-  const { data: roadmaps, isSuccess: isRoadmapsLoaded } = useRoadmaps();
-  const { mutate: removeRoadmap } = useRemoveRoadmap();
+  const { data: roadmaps, isSuccess: isRoadmapsLoaded } = useReactQuery(
+    "/roadmaps",
+    ["roadmaps"]
+  );
+  const { mutate: removeRoadmap } = useReactMutation("/roadmap/delete", [
+    "roadmaps",
+  ]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -16,7 +23,7 @@ function RemoveRoadmap() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    removeRoadmap(id);
+    removeRoadmap({ id });
 
     setId(-1);
 

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useAddQuestion } from "../../hooks/Questions";
+import useReactMutation from "../../hooks/useReactMutation";
 import Card from "../../layouts/Card";
 
 function AddQuestion() {
@@ -12,7 +12,11 @@ function AddQuestion() {
     questionRef.current.focus();
   }, []);
 
-  const { isSuccess, mutate: addQuestion, reset } = useAddQuestion();
+  const {
+    isSuccess,
+    mutate: addQuestion,
+    reset,
+  } = useReactMutation("/question", ["questions"]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

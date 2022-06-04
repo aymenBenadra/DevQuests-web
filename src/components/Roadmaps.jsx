@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PAGINATION_ITEMS_COUNT, ROADMAPS_FILTER_OPTIONS } from "../constants";
-import { useRoadmaps } from "../hooks/Roadmaps";
+import useReactQuery from "../hooks/useReactQuery";
 import Roadmap from "./Roadmap";
 
 function Roadmaps({
@@ -9,7 +9,10 @@ function Roadmaps({
   trailingItem = true,
   subtitle = "Pick a Roadmap and start learning how to code today!",
 }) {
-  const { data: roadmaps, isSuccess: isRoadmapsLoaded } = useRoadmaps();
+  const { data: roadmaps, isSuccess: isRoadmapsLoaded } = useReactQuery(
+    "/roadmaps",
+    ["roadmaps"]
+  );
   const [roadmapsFiltered, setRoadmapsFiltered] = useState([]);
 
   function filterRoadmaps(filter) {

@@ -1,13 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useResources, useRemoveResource } from "../../hooks/Resources";
+import useReactMutation from "../../hooks/useReactMutation";
+import useReactQuery from "../../hooks/useReactQuery";
 import Card from "../../layouts/Card";
 
 function RemoveResource() {
   const idRef = useRef();
 
   const [id, setId] = useState(-1);
-  const { data: resources, isSuccess: isResourcesLoaded } = useResources();
-  const { mutate: removeResource } = useRemoveResource();
+  const { data: resources, isSuccess: isResourcesLoaded } = useReactQuery(
+    "/resources",
+    ["resources"]
+  );
+  const { mutate: removeResource } = useReactMutation("/resource/delete", [
+    "resources",
+  ]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -16,7 +23,7 @@ function RemoveResource() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    removeResource(id);
+    removeResource({ id });
 
     setId(-1);
 

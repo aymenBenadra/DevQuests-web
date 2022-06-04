@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import Question from "../Question";
-import useQuestions from "../../hooks/Questions/useQuestions";
+import useReactQuery from "../../hooks/useReactQuery";
 
 function Questions() {
-  const { isLoading, isSuccess, data:questions } = useQuestions();
+  const {
+    isLoading,
+    isSuccess,
+    data: questions,
+  } = useReactQuery("/questions", ["questions"]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isSuccess)

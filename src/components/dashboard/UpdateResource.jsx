@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useUpdateResource, useResources } from "../../hooks/Resources";
+import useReactMutation from "../../hooks/useReactMutation";
+import useReactQuery from "../../hooks/useReactQuery";
 import Card from "../../layouts/Card";
 
 function UpdateResource() {
@@ -9,8 +10,13 @@ function UpdateResource() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
-  const { data: resources, isSuccess: isResourcesLoaded } = useResources();
-  const { mutate: updateResource } = useUpdateResource();
+  const { data: resources, isSuccess: isResourcesLoaded } = useReactQuery(
+    "/resources",
+    ["resources"]
+  );
+  const { mutate: updateResource } = useReactMutation("/resource/update", [
+    "resources",
+  ]);
 
   useEffect(() => {
     idRef.current.focus();

@@ -1,19 +1,32 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useRoadmap } from "../../hooks/Roadmaps";
-import { useCompleteModule } from "../../hooks/Modules";
 import useAuth from "../../hooks/useAuth";
+import useReactQuery from "../../hooks/useReactQuery";
+import useReactMutation from "../../hooks/useReactMutation";
 
 function Module() {
   const { roadmap: roadmapTitle, module: title } = useParams();
-  const { data: roadmap, isSuccess: isRoadmapLoaded } =
-    useRoadmap(roadmapTitle);
-  const { mutate: toggleCompleted } = useCompleteModule(roadmapTitle);
+
+  const { auth } = useAuth();
+  const cache = auth?.username
+    ? ["roadmap", auth.username, roadmapTitle]
+    : ["roadmap", roadmapTitle];
+  const { data: roadmap, isSuccess: isRoadmapLoaded } = useReactQuery(
+    "/roadmap",
+    cache,
+    {
+      title: roadmapTitle,
+    }
+  );
+  const { mutate: toggleCompleted } = useReactMutation(
+    "/module/completed",
+    cache
+  );
+
   const [module, setModule] = useState(() => {
     if (!roadmap) return null;
     return roadmap.modules.find((m) => m.title === title);
   });
-  const { auth } = useAuth();
 
   useEffect(() => {
     if (isRoadmapLoaded) {
@@ -30,7 +43,7 @@ function Module() {
       throw new Error("You must be logged in to toggle a module");
     }
 
-    toggleCompleted(module.id);
+    toggleCompleted({ id: module.id });
   };
 
   return (
