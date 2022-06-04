@@ -37,7 +37,7 @@ function Module() {
     !!module && (
       <>
         <div className="flex justify-between w-full">
-          <div className="text-sm md:breadcrumbs mb-4">
+          <div className="text-sm md:breadcrumbs mb-4 font-serif">
             <ul>
               <li className="hidden">
                 <Link to={`/roadmap/${roadmap.title}`}>{roadmap.title}</Link>
@@ -66,7 +66,7 @@ function Module() {
           {module.nodes.map((node) => (
             <div className="collapse collapse-arrow" key={node.id}>
               <input type="checkbox" />
-              <div className="collapse-title text-lg font-medium w-full">
+              <div className="collapse-title text-lg font-medium w-full font-serif">
                 {node.title}
               </div>
               <div className="collapse-content text-sm">
