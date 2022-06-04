@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Resources from "../components/home/Resources";
-import Roadmaps from "../components/home/Roadmaps";
+import Roadmaps from "../components/Roadmaps";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import Questions from "../components/home/Questions";
@@ -28,7 +28,7 @@ function Home() {
           </>
         }
       />
-      <Roadmaps />
+      <Roadmaps title="Featured Roadmaps" />
       <div className="flex flex-grow flex-col md:flex-row w-full">
         <section className="mt-4 mx-4 bg-base-100 p-10 rounded-box w-full md:w-3/5">
           <h1 className="text-4xl mb-6">Resources</h1>
