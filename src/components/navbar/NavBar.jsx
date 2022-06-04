@@ -9,7 +9,7 @@ function NavBar() {
     <div className="navbar w-full flex-col mb-4 sm:flex-row">
       <div className="flex-1">
         <Link to="/">
-          <span className="btn btn-ghost normal-case text-xl p-3 h-fit">
+          <span className="btn btn-ghost normal-case text-xl p-3 h-fit font-serif">
             <img src={logo} alt="logo" className="h-10 mr-2" />
             DevQuests
           </span>

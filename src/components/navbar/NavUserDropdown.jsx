@@ -30,12 +30,9 @@ function NavUserDropdown() {
             __html: decodeURIComponent(auth.avatar),
           }}
         ></div>
-        <span>{auth.username}</span>
+        <span className="font-serif">{auth.username}</span>
       </label>
-      <ul
-        tabIndex={0}
-        className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-800 rounded-box w-56"
-      >
+      <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-800 rounded-box w-56 bg-base-800 z-50">
         {auth?.is_admin ? (
           <li>
             <div>
@@ -45,11 +42,18 @@ function NavUserDropdown() {
               </Link>
             </div>
           </li>
-        ) : (
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-        )}
+        ) : null}
+        <li>
+          <div>
+            <Link to="/profile">
+              Profile{" "}
+              <span className="badge badge-outline badge-primary">
+                {auth?.is_admin ? "Admin" : "User"}
+              </span>
+            </Link>
+          </div>
+        </li>
+
         <li>
           <button onClick={handleLogout}>Logout</button>
         </li>
