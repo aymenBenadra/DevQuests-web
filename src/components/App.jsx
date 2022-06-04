@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Roadmap from "../pages/Roadmap";
@@ -13,16 +12,16 @@ import Module from "./roadmap/Module";
 import Layout from "../layouts/Layout";
 import Register from "../pages/Register";
 import Card from "../layouts/Card";
-import AddRoadmap from "./dashboard/AddRoadmap";
 import RemoveRoadmap from "./dashboard/RemoveRoadmap";
 import AddResource from "./dashboard/AddResource";
-import UpdateResource from "./dashboard/UpdateResources";
+import UpdateResource from "./dashboard/UpdateResource";
 import RemoveQuestion from "./dashboard/RemoveQuestion";
 import AddQuestion from "./dashboard/AddQuestion";
 import UpdateQuestion from "./dashboard/UpdateQuestion";
 import RemoveResource from "./dashboard/RemoveResource";
 import UnderConstruction from "./UnderConstruction";
 import Resources from "../pages/Resources";
+import Questions from "../pages/Questions";
 
 function App() {
   const { roles } = useAuth();
@@ -32,7 +31,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="resources" element={<Resources />} />
-        <Route path="questions" element={<UnderConstruction />} />
+        <Route path="questions" element={<Questions />} />
         <Route path="roadmaps" element={<Roadmaps />} />
         <Route path="roadmap/:roadmap" element={<Roadmap />}>
           <Route
@@ -62,7 +61,8 @@ function App() {
                 </Card>
               }
             />
-            <Route path="roadmaps/add" element={<AddRoadmap />} />
+            <Route path="roadmaps/add" element={<UnderConstruction />} />
+            <Route path="roadmaps/update" element={<UnderConstruction />} />
             <Route path="roadmaps/remove" element={<RemoveRoadmap />} />
             <Route path="resources/add" element={<AddResource />} />
             <Route path="resources/update" element={<UpdateResource />} />

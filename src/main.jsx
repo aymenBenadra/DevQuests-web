@@ -9,7 +9,7 @@ import { RoadmapsProvider } from "./contexts/RoadmapsContext";
 import { ResourcesProvider } from "./contexts/ResourcesContext";
 import { ModulesProvider } from "./contexts/ModulesContext";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { ReactQueryDevtools } from "react-query/devtools";
 
 const queryClient = new QueryClient({
   retry: false,
@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <ModulesProvider>
               <ResourcesProvider>
                 <App />
-                <ReactQueryDevtools />
+                {/* <ReactQueryDevtools /> */}
               </ResourcesProvider>
             </ModulesProvider>
           </RoadmapsProvider>
