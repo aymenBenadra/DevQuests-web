@@ -1,24 +1,31 @@
 import { useParams, Outlet, Link } from "react-router-dom";
 import Hero from "../components/Hero";
-import {
-  useRoadmap,
-  useStartRoadmap,
-  useToggleRoadmapMode,
-  useResetRoadmap,
-} from "../hooks/Roadmaps";
 import useAuth from "../hooks/useAuth";
+import useReactMutation from "../hooks/useReactMutation";
+import useReactQuery from "../hooks/useReactQuery";
 
 function Roadmap() {
-  const {roadmap: title} = useParams();
+  const { roadmap: title } = useParams();
   const {
     data: roadmap,
     isSuccess: isRoadmapLoaded,
     isError: isRoadmapNotLoaded,
     error: roadmapError,
-  } = useRoadmap(title);
-  const { mutate: startRoadmap } = useStartRoadmap(title);
-  const { mutate: toggleRoadmapMode } = useToggleRoadmapMode(title);
-  const { mutate: resetRoadmap } = useResetRoadmap(title);
+  } = useReactQuery(`/roadmap`, ["roadmap", title], {
+    title,
+  });
+  const { mutate: startRoadmap } = useReactMutation("/roadmap/start", [
+    "roadmap",
+    title,
+  ]);
+  const { mutate: toggleRoadmapMode } = useReactMutation("/roadmap/mode", [
+    "roadmap",
+    title,
+  ]);
+  const { mutate: resetRoadmap } = useReactMutation("/roadmap/reset", [
+    "roadmap",
+    title,
+  ]);
 
   const { auth } = useAuth();
 
@@ -27,7 +34,7 @@ function Roadmap() {
       throw new Error("You must be logged in to start a roadmap");
     }
 
-    startRoadmap(roadmap.id);
+    startRoadmap({ id: roadmap.id });
   };
 
   const handleToggleMode = () => {
@@ -35,7 +42,7 @@ function Roadmap() {
       throw new Error("You must be logged in to toggle a roadmap");
     }
 
-    toggleRoadmapMode(roadmap.id);
+    toggleRoadmapMode({ id: roadmap.id });
   };
 
   const handleResetProgress = () => {
@@ -43,7 +50,7 @@ function Roadmap() {
       throw new Error("You must be logged in to reset a roadmap");
     }
 
-    resetRoadmap(roadmap.id);
+    resetRoadmap({ id: roadmap.id });
   };
 
   return isRoadmapLoaded ? (
@@ -52,54 +59,62 @@ function Roadmap() {
         title={
           <>
             {roadmap.title}{" "}
-            {roadmap.relaxed ? (
-              <button
-                className="badge badge-primary btn-sm"
-                onClick={() => handleToggleMode()}
-              >
-                Relaxed
-              </button>
-            ) : (
-              <button
-                className="badge badge-primary btn-sm"
-                onClick={() => handleToggleMode()}
-              >
-                Strict
-              </button>
-            )}
+            {auth?.username ? (
+              roadmap.relaxed ? (
+                <button
+                  className="badge badge-primary btn-sm"
+                  onClick={() => handleToggleMode()}
+                >
+                  Relaxed
+                </button>
+              ) : (
+                <button
+                  className="badge badge-primary btn-sm"
+                  onClick={() => handleToggleMode()}
+                >
+                  Strict
+                </button>
+              )
+            ) : null}
           </>
         }
         subtitle={roadmap.description}
         cta={
-          !roadmap.started ? (
-            <button
-              className="btn btn-primary"
-              onClick={() => handleStartRoadmap()}
-            >
-              Start Roadmap
-            </button>
-          ) : (
-            <div className="flex space-x-2">
-              {!roadmap.completed ? (
-                <button className="btn btn-primary btn-disabled">
-                  Started
-                </button>
-              ) : (
-                <button className="btn btn-primary btn-disabled">
-                  Completed
-                </button>
-              )}
+          auth?.username ? (
+            !roadmap.started ? (
               <button
-                className="btn btn-warning"
-                onClick={() => {
-                  confirm(
-                    "Are you sure you want to reset your progress? (CAN'T BE UNDONE!)"
-                  ) && handleResetProgress();
-                }}
+                className="btn btn-primary"
+                onClick={() => handleStartRoadmap()}
               >
-                Reset progress
+                Start Roadmap
               </button>
-            </div>
+            ) : (
+              <div className="flex space-x-2">
+                {!roadmap.completed ? (
+                  <button className="btn btn-primary btn-disabled">
+                    Started
+                  </button>
+                ) : (
+                  <button className="btn btn-primary btn-disabled">
+                    Completed
+                  </button>
+                )}
+                <button
+                  className="btn btn-warning"
+                  onClick={() => {
+                    confirm(
+                      "Are you sure you want to reset your progress? (CAN'T BE UNDONE!)"
+                    ) && handleResetProgress();
+                  }}
+                >
+                  Reset progress
+                </button>
+              </div>
+            )
+          ) : (
+            <Link to="/login" className="btn btn-primary btn-outline">
+              Login to start a roadmap
+            </Link>
           )
         }
       />

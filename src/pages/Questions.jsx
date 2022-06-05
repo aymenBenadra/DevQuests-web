@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import Question from "../components/Question";
-import { useQuestions } from "../hooks/Questions";
 import { PAGINATION_ITEMS_COUNT } from "../constants";
+import useReactQuery from "../hooks/useReactQuery";
 
 function Questions() {
-  const { data: questions, isSuccess } = useQuestions();
+  const { data: questions, isSuccess } = useReactQuery("/questions", [
+    "questions",
+  ]);
   const [count, setCount] = useState(1);
   const showMoreRef = useRef();
 

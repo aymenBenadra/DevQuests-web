@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { PAGINATION_ITEMS_COUNT } from "../constants";
-import { useResources } from "../hooks/Resources";
+import useReactQuery from "../hooks/useReactQuery";
 
 function Resources() {
-  const { data: resources, isSuccess } = useResources();
+  const { data: resources, isSuccess } = useReactQuery("/resources", [
+    "resources",
+  ]);
   const [count, setCount] = useState(1);
   const showMoreRef = useRef();
 

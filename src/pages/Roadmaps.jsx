@@ -1,10 +1,12 @@
-import { useRoadmaps } from "../hooks/Roadmaps";
 import Roadmap from "../components/Roadmap";
 import { useEffect, useRef, useState } from "react";
 import { PAGINATION_ITEMS_COUNT } from "../constants";
+import useReactQuery from "../hooks/useReactQuery";
 
 function Roadmaps() {
-  const { data: roadmaps, isSuccess } = useRoadmaps();
+  const { data: roadmaps, isSuccess } = useReactQuery("/roadmaps", [
+    "roadmaps",
+  ]);
   const [count, setCount] = useState(1);
   const showMoreRef = useRef();
 

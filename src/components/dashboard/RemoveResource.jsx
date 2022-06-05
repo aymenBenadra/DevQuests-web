@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useResources, useRemoveResource } from "../../hooks/Resources";
 import useReactMutation from "../../hooks/useReactMutation";
 import useReactQuery from "../../hooks/useReactQuery";
 import Card from "../../layouts/Card";
