@@ -61,7 +61,7 @@ function NavUserDropdown() {
     </div>
   ) : (
     <>
-      <Link to="/register" className="btn justify-self-end btn-success mr-3">
+      <Link to="/register" className="btn justify-self-end btn-success mr-3 hidden md:block">
         Sign up
       </Link>
       <Link to="/login" className="btn justify-self-end">

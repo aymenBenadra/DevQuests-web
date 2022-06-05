@@ -76,6 +76,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              placeholder="Password"
               className="input input-bordered w-full max-w-xs"
             />
           </div>
