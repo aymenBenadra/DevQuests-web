@@ -20,6 +20,13 @@ function UpdateResource() {
 
   useEffect(() => {
     idRef.current.focus();
+
+    return () => {
+      setId(-1);
+      setTitle("");
+      setDescription("");
+      setLink("");
+    };
   }, []);
 
   useEffect(() => {
@@ -77,58 +84,57 @@ function UpdateResource() {
         </div>
 
         {id !== -1 && (
-          <div className="justify-evenly flex flex-col md:flex-row flex-wrap items-center md:space-y-0 space-y-3">
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Title</span>
-              </label>
-              <input
-                type="text"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                autoComplete="off"
-                required
-                placeholder="Title"
-                className="input input-bordered w-full max-w-xs"
-              />
-            </div>
+          <>
+            <div className="justify-evenly flex flex-col md:flex-row flex-wrap items-center md:space-y-0 space-y-3">
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Title</span>
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  autoComplete="off"
+                  required
+                  placeholder="Title"
+                  className="input input-bordered w-full max-w-xs"
+                />
+              </div>
 
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Description</span>
-              </label>
-              <textarea
-                id="description"
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                placeholder="Description"
-                className="input input-bordered w-full max-w-xs"
-                value={description}
-              />
-            </div>
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Description</span>
+                </label>
+                <textarea
+                  id="description"
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                  placeholder="Description"
+                  className="input input-bordered w-full max-w-xs"
+                  value={description}
+                />
+              </div>
 
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Link</span>
-              </label>
-              <input
-                type="text"
-                id="link"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-                required
-                placeholder="Link"
-                className="input input-bordered w-full max-w-xs"
-              />
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Link</span>
+                </label>
+                <input
+                  type="text"
+                  id="link"
+                  value={link}
+                  onChange={(e) => setLink(e.target.value)}
+                  required
+                  placeholder="Link"
+                  className="input input-bordered w-full max-w-xs"
+                />
+              </div>
             </div>
-          </div>
-        )}
-
-        {id !== -1 && (
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </>
         )}
       </form>
     </Card>

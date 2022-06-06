@@ -10,6 +10,11 @@ function AddQuestion() {
 
   useEffect(() => {
     questionRef.current.focus();
+
+    return () => {
+      setQuestion("");
+      setAnswer("");
+    };
   }, []);
 
   const {

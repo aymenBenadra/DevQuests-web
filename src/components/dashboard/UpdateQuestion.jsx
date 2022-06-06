@@ -19,6 +19,12 @@ function UpdateQuestion() {
 
   useEffect(() => {
     idRef.current.focus();
+
+    return () => {
+      setId(-1);
+      setQuestion("");
+      setAnswer("");
+    };
   }, []);
 
   useEffect(() => {

@@ -16,6 +16,12 @@ function AddResource() {
 
   useEffect(() => {
     titleRef.current.focus();
+
+    return () => {
+      setTitle("");
+      setDescription("");
+      setLink("");
+    };
   }, []);
 
   const handleSubmit = async (e) => {
