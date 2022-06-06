@@ -8,19 +8,16 @@ function Module() {
   const { roadmap: roadmapTitle, module: title } = useParams();
 
   const { auth } = useAuth();
-  const cache = auth?.username
-    ? ["roadmap", auth.username, roadmapTitle]
-    : ["roadmap", roadmapTitle];
   const { data: roadmap, isSuccess: isRoadmapLoaded } = useReactQuery(
     "/roadmap",
-    cache,
+    ["roadmap", roadmapTitle],
     {
       title: roadmapTitle,
     }
   );
   const { mutate: toggleCompleted } = useReactMutation(
     "/module/completed",
-    cache
+    ["roadmap", roadmapTitle]
   );
 
   const [module, setModule] = useState(() => {
