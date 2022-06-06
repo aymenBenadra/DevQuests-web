@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function SideMenu() {
   return (
-    <ul className="menu menu-horizontal md:menu-vertical w-fit p-0.5 md:p-2 rounded-box h-fit bg-base-100 border border-base-300 z-10 shadow-xl">
+    <ul className="menu menu-horizontal md:menu-vertical w-fit p-0.5 md:p-2 rounded-box h-fit bg-base-100 border border-base-300 z-10 shadow-xl sticky top-2">
       <li>
         <span>Roadmaps</span>
         <ul className="rounded-box p-2 bg-base-100 border border-base-300">

@@ -18,12 +18,12 @@ function Stats() {
   } = useReactQuery("/questions", ["questions"]);
 
   return (
-    <div className="stats stats-horizontal md:stats-vertical border border-base-300 min-w-fit shadow-xl">
+    <div className="stats stats-horizontal md:stats-vertical border border-base-300 min-w-fit h-fit md:sticky top-2 shadow-xl">
       <div className="stat px-2 md:p-2">
         <div className="stat-title">Roadmaps</div>
         <div className="stat-value text-primary text-center">
           {isRoadmapsLoading
-            ? "Loading..."
+            ? "0"
             : isRoadmapsLoaded
             ? roadmaps.length
             : "-1"}
@@ -34,7 +34,7 @@ function Stats() {
         <div className="stat-title">Resources</div>
         <div className="stat-value text-primary text-center">
           {isResourcesLoading
-            ? "Loading..."
+            ? "0"
             : isResourcesLoaded
             ? resources.length
             : "-1"}
@@ -45,7 +45,7 @@ function Stats() {
         <div className="stat-title">Questions</div>
         <div className="stat-value text-primary text-center">
           {isQuestionsLoading
-            ? "Loading..."
+            ? "0"
             : isQuestionsLoaded
             ? questions.length
             : "-1"}
