@@ -19,9 +19,10 @@ import RemoveQuestion from "./dashboard/RemoveQuestion";
 import AddQuestion from "./dashboard/AddQuestion";
 import UpdateQuestion from "./dashboard/UpdateQuestion";
 import RemoveResource from "./dashboard/RemoveResource";
-import UnderConstruction from "./UnderConstruction";
 import Resources from "../pages/Resources";
 import Questions from "../pages/Questions";
+import AddRoadmap from "./dashboard/AddRoadmap";
+import UpdateRoadmap from "./dashboard/UpdateRoadmap";
 
 function App() {
   const { roles } = useAuth();
@@ -61,8 +62,8 @@ function App() {
                 </Card>
               }
             />
-            <Route path="roadmaps/add" element={<UnderConstruction />} />
-            <Route path="roadmaps/update" element={<UnderConstruction />} />
+            <Route path="roadmaps/add" element={<AddRoadmap />} />
+            <Route path="roadmaps/update" element={<UpdateRoadmap />} />
             <Route path="roadmaps/remove" element={<RemoveRoadmap />} />
             <Route path="resources/add" element={<AddResource />} />
             <Route path="resources/update" element={<UpdateResource />} />

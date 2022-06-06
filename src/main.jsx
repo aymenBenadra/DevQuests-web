@@ -5,7 +5,8 @@ import App from "./components/App";
 import { AuthProvider } from "./contexts/AuthContext";
 import { AlertProvider } from "./contexts/AlertContext";
 import { QueryClient, QueryClientProvider } from "react-query";
-// import { ReactQueryDevtools } from "react-query/devtools";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { ModulesProvider } from "./contexts/ModulesContext";
 
 const queryClient = new QueryClient({
   retry: false,
@@ -15,10 +16,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AlertProvider>
       <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <App />
-          {/* <ReactQueryDevtools /> */}
-        </QueryClientProvider>
+        <ModulesProvider>
+          <QueryClientProvider client={queryClient}>
+            <App />
+            {/* <ReactQueryDevtools /> */}
+          </QueryClientProvider>
+        </ModulesProvider>
       </AuthProvider>
     </AlertProvider>
   </BrowserRouter>
