@@ -15,3 +15,4 @@ export const ROADMAPS_FILTER_OPTIONS = {
   strict: "Strict",
   relaxed: "Relaxed",
 };
+export const ROADMAPS_DESCRIPTION_WORD_LIMIT = 20;

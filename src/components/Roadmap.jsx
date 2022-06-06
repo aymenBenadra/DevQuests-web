@@ -2,6 +2,7 @@ import React from "react";
 import Card from "../layouts/Card";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { ROADMAPS_DESCRIPTION_WORD_LIMIT } from "../constants";
 
 function Roadmap({ roadmap }) {
   const { auth } = useAuth();
@@ -9,10 +10,15 @@ function Roadmap({ roadmap }) {
   return (
     <Link
       to={roadmap.link ?? `/roadmap/${encodeURI(roadmap.title)}`}
-      className="sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 carousel-item min-w-fit place-content-center"
+      className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 carousel-item min-w-fit place-content-center"
     >
-      <Card title={roadmap.title}>
-        <p>{roadmap.description}</p>
+      <Card title={roadmap.title} styles="w-full">
+        <p>
+          {roadmap.description
+            .split(" ", ROADMAPS_DESCRIPTION_WORD_LIMIT)
+            .join(" ")}
+          ...
+        </p>
         {auth?.username && (
           <div className="flex flex-wrap space-x-1 md:space-x-2">
             {roadmap?.started &&
