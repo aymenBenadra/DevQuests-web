@@ -37,7 +37,7 @@ function Resources() {
               >
                 <a href={resource.link} target="_blank">
                   <div className="indicator w-full">
-                    <span className="indicator-item indicator-middle -translate-x-1 hover:-translate-x-4 badge badge-primary ">
+                    <span className="indicator-item indicator-top badge badge-primary ">
                       Go to →
                     </span>
                     {resource.title}
