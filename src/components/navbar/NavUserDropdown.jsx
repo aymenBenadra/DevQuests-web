@@ -32,7 +32,7 @@ function NavUserDropdown() {
         ></div>
         <span className="font-serif">{auth.username}</span>
       </label>
-      <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-800 rounded-box w-56 bg-base-800 z-50">
+      <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-100 rounded-box w-56">
         {auth?.is_admin ? (
           <li>
             <div>
@@ -61,7 +61,10 @@ function NavUserDropdown() {
     </div>
   ) : (
     <>
-      <Link to="/register" className="btn justify-self-end btn-success mr-3 hidden md:block">
+      <Link
+        to="/register"
+        className="btn justify-self-end btn-success mr-3 hidden md:block"
+      >
         Sign up
       </Link>
       <Link to="/login" className="btn justify-self-end">

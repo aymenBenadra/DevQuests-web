@@ -21,7 +21,7 @@ function NavBar() {
       </div>
       <div className="hidden md:navbar-center md:inline-block">
         <ul
-          tabindex="0"
+          tabIndex="0"
           className="menu menu-horizontal bg-base-100 rounded-box p-2 w-fit min-w-fit shadow"
         >
           <li>
