@@ -11,9 +11,11 @@ function RemoveQuestion() {
     "/questions",
     ["questions"]
   );
-  const { mutate: removeQuestion } = useReactMutation("/question/delete", [
-    "questions",
-  ]);
+  const {
+    mutate: removeQuestion,
+    isSuccess,
+    reset,
+  } = useReactMutation("/question/delete", ["questions"]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -24,10 +26,16 @@ function RemoveQuestion() {
 
     removeQuestion({ id });
 
-    setId(-1);
-
     idRef.current.focus();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setId(-1);
+      reset();
+    }
+  }, [isSuccess, reset]);
+
   return (
     <Card
       title="Remove Question 🚀"

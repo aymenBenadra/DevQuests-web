@@ -12,9 +12,11 @@ function AddRoadmap() {
 
   const [title, setTitle] = useState(() => "");
   const [description, setDescription] = useState(() => "");
-  const { mutate: addRoadmap, isSuccess } = useReactMutation("/roadmap", [
-    "roadmaps",
-  ]);
+  const {
+    mutate: addRoadmap,
+    isSuccess,
+    reset,
+  } = useReactMutation("/roadmap", ["roadmaps"]);
   const { modules, setModules } = useModules();
 
   useEffect(() => {
@@ -48,11 +50,16 @@ function AddRoadmap() {
     };
 
     addRoadmap(roadmap);
-
-    if (isSuccess) {
-      setModules([]);
-    }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTitle("");
+      setDescription("");
+      setModules([]);
+      reset();
+    }
+  }, [isSuccess, reset]);
 
   const handleAddModule = (e) => {
     e.preventDefault();

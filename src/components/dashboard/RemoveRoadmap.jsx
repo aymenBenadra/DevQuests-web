@@ -11,9 +11,11 @@ function RemoveRoadmap() {
     "/roadmaps",
     ["roadmaps"]
   );
-  const { mutate: removeRoadmap } = useReactMutation("/roadmap/delete", [
-    "roadmaps",
-  ]);
+  const {
+    mutate: removeRoadmap,
+    isSuccess,
+    reset,
+  } = useReactMutation("/roadmap/delete", ["roadmaps"]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -24,10 +26,16 @@ function RemoveRoadmap() {
 
     removeRoadmap({ id });
 
-    setId(-1);
-
     idRef.current.focus();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setId(-1);
+      reset();
+    }
+  }, [isSuccess, reset]);
+
   return (
     <Card
       title="Remove Roadmap 🚀"

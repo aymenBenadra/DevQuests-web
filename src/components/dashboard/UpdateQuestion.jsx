@@ -13,9 +13,11 @@ function UpdateQuestion() {
     "/questions",
     ["questions"]
   );
-  const { mutate: updateQuestion } = useReactMutation("/question/update", [
-    "questions",
-  ]);
+  const {
+    mutate: updateQuestion,
+    isSuccess,
+    reset,
+  } = useReactMutation("/question/update", ["questions"]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -40,12 +42,18 @@ function UpdateQuestion() {
 
     updateQuestion({ id, question, answer });
 
-    setId(-1);
-    setQuestion("");
-    setAnswer("");
-
     idRef.current.focus();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setId(-1);
+      setQuestion("");
+      setAnswer("");
+      reset();
+    }
+  }, [isSuccess, reset]);
+
   return (
     <Card
       title="Update Question 🚀"

@@ -14,9 +14,11 @@ function UpdateResource() {
     "/resources",
     ["resources"]
   );
-  const { mutate: updateResource } = useReactMutation("/resource/update", [
-    "resources",
-  ]);
+  const {
+    mutate: updateResource,
+    isSuccess,
+    reset,
+  } = useReactMutation("/resource/update", ["resources"]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -44,13 +46,19 @@ function UpdateResource() {
 
     updateResource({ id, title, description, link });
 
-    setId(-1);
-    setTitle("");
-    setDescription("");
-    setLink("");
-
     idRef.current.focus();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setId(-1);
+      setTitle("");
+      setDescription("");
+      setLink("");
+      reset();
+    }
+  }, [isSuccess, reset]);
+
   return (
     <Card
       title="Update Resource 🚀"

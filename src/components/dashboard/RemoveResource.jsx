@@ -11,9 +11,11 @@ function RemoveResource() {
     "/resources",
     ["resources"]
   );
-  const { mutate: removeResource } = useReactMutation("/resource/delete", [
-    "resources",
-  ]);
+  const {
+    mutate: removeResource,
+    isSuccess,
+    reset,
+  } = useReactMutation("/resource/delete", ["resources"]);
 
   useEffect(() => {
     idRef.current.focus();
@@ -24,10 +26,16 @@ function RemoveResource() {
 
     removeResource({ id });
 
-    setId(-1);
-
     idRef.current.focus();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setId(-1);
+      reset();
+    }
+  }, [isSuccess, reset]);
+
   return (
     <Card
       title="Remove Resource 🚀"
