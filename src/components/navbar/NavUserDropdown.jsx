@@ -63,7 +63,7 @@ function NavUserDropdown() {
     <>
       <Link
         to="/register"
-        className="btn justify-self-end btn-success mr-3 hidden md:block"
+        className="btn justify-self-end btn-success mr-3 hidden lg:inline-flex items-center"
       >
         Sign up
       </Link>

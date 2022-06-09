@@ -38,7 +38,7 @@ function NavBar() {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end mr-1">
         <NavThemeSwap />
         <NavUserDropdown />
       </div>
