@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import useAlert from "../../hooks/useAlert";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
+// import NavClock from "./NavClock";
 
 function NavUserDropdown() {
   const { auth, setAuth } = useAuth();
@@ -33,6 +34,9 @@ function NavUserDropdown() {
         <span className="font-serif">{auth.username}</span>
       </label>
       <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-100 rounded-box w-56">
+        {/* <li className="text-center disabled text-opacity-100">
+          <NavClock />
+        </li> */}
         {auth?.is_admin ? (
           <li>
             <div>

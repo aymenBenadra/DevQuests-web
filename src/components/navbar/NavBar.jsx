@@ -4,10 +4,11 @@ import NavThemeSwap from "./NavThemeSwap";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import NavBurger from "./NavBurger";
+import NavClock from "./NavClock";
 
 function NavBar() {
   return (
-    <div className="navbar mb-4 p-0 py-2 md:p-2">
+    <div className="navbar mb-4 p-0 py-2 md:p-2 relative">
       <div className="navbar-start md:hidden">
         <NavBurger />
       </div>
@@ -41,6 +42,9 @@ function NavBar() {
       <div className="navbar-end mr-1">
         <NavThemeSwap />
         <NavUserDropdown />
+      </div>
+      <div className="kbd kbd-md absolute -bottom-7 left-2 z-50 hidden md:flex">
+        <NavClock />
       </div>
     </div>
   );
