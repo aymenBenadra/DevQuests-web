@@ -18,11 +18,6 @@ function SideMenu() {
             </Link>
           </li>
           <li>
-            <Link to="roadmaps/update">
-              <span>Update Roadmap</span>
-            </Link>
-          </li>
-          <li>
             <Link to="roadmaps/remove">
               <span>Remove Roadmap</span>
             </Link>

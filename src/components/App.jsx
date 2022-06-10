@@ -22,7 +22,6 @@ import RemoveResource from "./dashboard/RemoveResource";
 import Resources from "../pages/Resources";
 import Questions from "../pages/Questions";
 import AddRoadmap from "./dashboard/AddRoadmap";
-import UpdateRoadmap from "./dashboard/UpdateRoadmap";
 
 function App() {
   const { roles } = useAuth();
@@ -63,7 +62,6 @@ function App() {
               }
             />
             <Route path="roadmaps/add" element={<AddRoadmap />} />
-            <Route path="roadmaps/update" element={<UpdateRoadmap />} />
             <Route path="roadmaps/remove" element={<RemoveRoadmap />} />
             <Route path="resources/add" element={<AddResource />} />
             <Route path="resources/update" element={<UpdateResource />} />
