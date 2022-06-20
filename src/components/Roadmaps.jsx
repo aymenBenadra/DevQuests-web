@@ -52,7 +52,7 @@ function Roadmaps({
       <p className="text-primary mb-4">{subtitle}</p>
       {isRoadmapsLoaded ? (
         <div className="carousel carousel-center h-96 md:h-fit p-2 md:p-4 space-x-0 md:space-x-4 space-y-4 md:space-y-0 bg-base-300 rounded-box carousel-vertical items-center md:flex-row md:overflow-x-scroll md:snap-y md:snap-mandatory">
-          {roadmapsFiltered.length ? (
+          {roadmapsFiltered.length > 0 ? (
             roadmapsFiltered.map((roadmap) => (
               <Roadmap key={roadmap.id} roadmap={roadmap} />
             ))
